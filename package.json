@@ -1,6 +1,6 @@
 {
   "name": "fake-product-generator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate fake products for testing",
   "main": "index.js",
   "scripts": {
