@@ -1,0 +1,31 @@
+{
+  "name": "fake-product-generator",
+  "version": "1.0.0",
+  "description": "Generate fake products for testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emkay/fake-product-generator.git"
+  },
+  "keywords": [
+    "generate",
+    "fake",
+    "product"
+  ],
+  "author": "Michael Matuzak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emkay/fake-product-generator/issues"
+  },
+  "homepage": "https://github.com/emkay/fake-product-generator#readme",
+  "dependencies": {
+    "casual": "^1.5.1"
+  },
+  "devDependencies": {
+    "standard": "^5.4.1",
+    "tape": "^4.4.0"
+  }
+}
