@@ -8,6 +8,6 @@ Generate fake products for testing
 ## Use
 
 ```javascript
-const fake = require('fake-product-generator')
+const faker = require('fake-product-generator')
 const products = faker(100)
 ```
