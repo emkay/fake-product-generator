@@ -1,5 +1,5 @@
 # fake-product-generator
-Generate fake products for testing
+Streaming fake product generator for testing
 
 ## Install
 
@@ -8,7 +8,7 @@ Generate fake products for testing
 ## Use
 
 ```javascript
-const faker = require('fake-product-generator')
+const faker = require('fake-product-generator')()
 const s = fake.createReadStream()
 
 s.on('data', console.log)
