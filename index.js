@@ -1,5 +1,5 @@
-'use strict'
 const casual = require('casual')
+const Readable = require('readable-stream').Readable
 
 casual.define('product', () => {
   return {
@@ -15,12 +15,29 @@ casual.define('product', () => {
   }
 })
 
-module.exports = (n) => {
-  let data = []
-  for (let i = 0; i < n; i++) {
-    let product = casual.product
-    data.push(product)
+module.exports = Fake
+
+function Fake () {
+  if (!(this instanceof Fake)) return new Fake()
+}
+
+Fake.prototype.createReadStream = () => {
+  this.rs = Readable()
+  return this.rs
+}
+
+Fake.prototype.genProducts = (n, cb) => {
+  const rs = this.rs
+
+  rs._read = () => {
+    rs.push('[')
+    for (let i = 0; i < n; i++) {
+      rs.push(JSON.stringify(casual.product))
+      if (i < n - 1) rs.push(',')
+    }
+    rs.push(']')
+    rs.push(null)
   }
 
-  return data
+  if (cb && typeof cb === 'function') return cb()
 }

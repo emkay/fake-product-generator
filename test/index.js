@@ -1,8 +1,19 @@
 const test = require('tape')
-const faker = require('..')
+const concat = require('concat-stream')
+const has = require('has')
+const faker = require('..')()
 
 test('make some data', (t) => {
-  t.plan(1)
-  const products = faker(100)
-  t.equal(products.length, 100, 'should create 100 products')
+  const s = faker.createReadStream()
+  const cs = concat((o) => {
+    const products = JSON.parse(o.toString())
+    products.forEach((p) => {
+      t.equal(has(p, 'part_number'), true)
+    })
+    t.end()
+  })
+
+  s.pipe(cs)
+
+  faker.genProducts(10)
 })

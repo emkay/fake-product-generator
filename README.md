@@ -9,5 +9,9 @@ Generate fake products for testing
 
 ```javascript
 const faker = require('fake-product-generator')
-const products = faker(100)
+const s = fake.createReadStream()
+
+s.on('data', console.log)
+
+faker.genProducts(100)
 ```
