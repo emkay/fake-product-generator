@@ -1,6 +1,6 @@
 {
   "name": "fake-product-generator",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Streaming fake product json for testing",
   "main": "index.js",
   "scripts": {
