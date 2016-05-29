@@ -1,5 +1,6 @@
 const casual = require('casual')
 const Readable = require('readable-stream').Readable
+const util = require('util')
 
 casual.define('product', () => {
   return {
@@ -16,28 +17,23 @@ casual.define('product', () => {
 })
 
 module.exports = Fake
+util.inherits(Fake, Readable)
 
-function Fake () {
-  if (!(this instanceof Fake)) return new Fake()
+function Fake (n) {
+  if (!(this instanceof Fake)) return new Fake(n)
+  this.count = 0
+  this.numProducts = n
+  Readable.call(this)
 }
 
-Fake.prototype.createReadStream = () => {
-  this.rs = Readable()
-  return this.rs
-}
-
-Fake.prototype.genProducts = (n, cb) => {
-  const rs = this.rs
-
-  rs._read = () => {
-    rs.push('[')
-    for (let i = 0; i < n; i++) {
-      rs.push(JSON.stringify(casual.product))
-      if (i < n - 1) rs.push(',')
-    }
-    rs.push(']')
-    rs.push(null)
+Fake.prototype._read = function _read () {
+  if (this.count === 0) this.push('[')
+  if (this.count === this.numProducts) {
+    this.push(']')
+    this.push(null)
+    return
   }
-
-  if (cb && typeof cb === 'function') return cb()
+  this.push(JSON.stringify(casual.product))
+  if (this.count < this.numProducts - 1) this.push(',')
+  this.count += 1
 }

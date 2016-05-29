@@ -1,10 +1,10 @@
 const test = require('tape')
 const concat = require('concat-stream')
 const has = require('has')
-const faker = require('..')()
+const Faker = require('..')
 
 test('make some data', (t) => {
-  const s = faker.createReadStream()
+  const faker = Faker(10)
   const cs = concat((o) => {
     const products = JSON.parse(o.toString())
     products.forEach((p) => {
@@ -13,7 +13,5 @@ test('make some data', (t) => {
     t.end()
   })
 
-  s.pipe(cs)
-
-  faker.genProducts(10)
+  faker.pipe(cs)
 })
